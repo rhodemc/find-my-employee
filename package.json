@@ -1,0 +1,28 @@
+{
+  "name": "find-my-employee",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rhodemc/find-my-employee.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rhodemc/find-my-employee/issues"
+  },
+  "homepage": "https://github.com/rhodemc/find-my-employee#readme",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "inquirer": "^9.1.5",
+    "mysql2": "^3.2.0"
+  }
+}
