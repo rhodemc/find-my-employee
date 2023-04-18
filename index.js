@@ -1,6 +1,6 @@
 // dependencies
 const inquirer = require("inquirer");
-const employeeDB = require("./db/connection.js");
+const employeeDB = require("./db/connection");
 require("console.table");
 
 // import functions
@@ -9,13 +9,14 @@ const {
   viewAllDepartments,
   viewAllRoles,
   viewEmployeesByDepartment,
+  viewEmployeesByManager,
   viewTotalUtilizedBudget,
 } = require("./utils/view.js");
 const { addEmployee, addDepartment, addRole } = require("./utils/add.js");
 const { updateEmployeeRole, updateEmployeeManager } = require("./utils/update.js");
 const { deleteEmployee, deleteDepartment, deleteRole } = require("./utils/delete.js");
 
-// start the application
+// application main menu
 dbMenu = async () => {
   await inquirer
     .prompt([
@@ -93,9 +94,11 @@ dbMenu = async () => {
     });
 };
 
+// exit the application
 exit = () => {
   employeeDB.end();
   console.log("Goodbye!");
 };
 
+// initialize the application
 dbMenu();

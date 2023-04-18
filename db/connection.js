@@ -1,3 +1,4 @@
+// dependencies
 require("dotenv").config();
 const mysql = require("mysql2");
 
@@ -13,4 +14,5 @@ const dbConnection = mysql.createConnection(
   console.log(`Connected to the employee_db database.`)
 );
 
+// export connection
 module.exports = dbConnection;

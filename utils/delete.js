@@ -1,3 +1,7 @@
+// dependencies
+const employeeDB = require("../db/connection");
+const inquirer = require("inquirer");
+
 // delete employee from database
 deleteEmployee = () => {
   employeeDB.query(
@@ -31,32 +35,36 @@ deleteEmployee = () => {
   );
 };
 
-// // delete department from database
-// deleteDepartment = () => {
-//   employeeDB.query(`SELECT * FROM department`, (err, res) => {
-//     if (err) throw err;
-//     const departments = res.map((department) => ({
-//       name: department.department_name,
-//       value: department.id,
-//     }));
-//     inquirer
-//       .prompt([
-//         {
-//           type: "list",
-//           name: "department",
-//           message: "Which department would you like to delete?",
-//           choices: departments,
-//         },
-//       ])
-//       .then((answer) => {
-//         employeeDB.query(`DELETE FROM department WHERE id = ?`, [answer.department], (err, res) => {
-//           if (err) throw err;
-//           console.log("Department deleted!");
-//           dbMenu();
-//         });
-//       });
-//   });
-// };
+// delete department from database
+deleteDepartment = () => {
+  employeeDB.query(
+    `SELECT department.id, department.department_name AS department
+        FROM department`,
+    (err, res) => {
+      if (err) throw err;
+      const departments = res.map((department) => ({
+        name: department.department,
+        value: department.id,
+      }));
+      inquirer
+        .prompt([
+          {
+            type: "list",
+            name: "department",
+            message: "Which department would you like to delete?",
+            choices: departments,
+          },
+        ])
+        .then((answer) => {
+          employeeDB.query(`DELETE FROM department WHERE id = ?`, [answer.department], (err, res) => {
+            if (err) throw err;
+            console.log("Department deleted!");
+            dbMenu();
+          });
+        });
+    }
+  );
+};
 
 // delete role from database
 deleteRole = () => {
@@ -90,4 +98,5 @@ deleteRole = () => {
   );
 };
 
+// export functions
 module.exports = { deleteEmployee, deleteDepartment, deleteRole };

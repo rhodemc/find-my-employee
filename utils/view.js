@@ -1,3 +1,7 @@
+// dependencies
+const employeeDB = require("../db/connection");
+const inquirer = require("inquirer");
+
 // view all employees
 viewAllEmployees = () => {
   employeeDB.query(
@@ -78,52 +82,45 @@ viewEmployeesByDepartment = () => {
 };
 
 // view employees by manager
-// viewEmployeesByManager = () => {
-//   employeeDB.query(
-//     `SELECT employee.id, employee.first_name, employee.last_name, employee_role.title, department.department_name AS department, employee_role.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager
-//       FROM employee
-//       LEFT JOIN employee_role on employee.role_id = employee_role.id
-//       LEFT JOIN department on employee_role.department_id = department.id
-//       LEFT JOIN employee manager on manager.id = employee.manager_id
-//       WHERE employee.manager_id IS NOT NULL`,
-//     (err, res) => {
-//       if (err) throw err;
-//       const managers = res.map((manager) => ({
-//         name: manager.manager,
-//         value: manager.id,
-//       }));
-//       inquirer
-//         .prompt([
-//           {
-//             type: "list",
-//             name: "manager",
-//             message: "Which manager would you like to view?",
-//             choices: managers,
-//           },
-//         ])
-//         .then((answer) => {
-//           employeeDB.query(
-//             // q why is this query wrong?
-//             // a because you're not using the manager id
-//             // q well, write the query
-//             // a ok
-//             `SELECT employee.id, employee.first_name, employee.last_name, employee_role.title, department.department_name AS department, employee_role.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager
-//               FROM employee
-//               LEFT JOIN employee_role on employee.role_id = employee_role.id
-//               LEFT JOIN department on employee_role.department_id = department.id
-//               LEFT JOIN employee manager on manager.id = employee.manager_id
-//               WHERE employee.manager_id =`,
-//             [answer.manager],
-//             (err, res) => {
-//               if (err) throw err;
-//               console.table(res);
-//               dbMenu();
-//             }
-//           );
-//         });
-//     }
-//   );
-// };
+viewEmployeesByManager = () => {
+  employeeDB.query(
+    `SELECT employee.id, CONCAT(employee.first_name, ' ', employee.last_name) AS manager
+        FROM employee
+        WHERE employee.manager_id IS NULL`,
+    (err, res) => {
+      if (err) throw err;
+      const managers = res.map((manager) => ({
+        name: manager.manager,
+        value: manager.id,
+      }));
+      inquirer
+        .prompt([
+          {
+            type: "list",
+            name: "manager",
+            message: "Which manager would you like to view?",
+            choices: managers,
+          },
+        ])
+        .then((answer) => {
+          employeeDB.query(
+            `SELECT employee.id, employee.first_name, employee.last_name, employee_role.title, department.department_name AS department, employee_role.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager
+                FROM employee
+                LEFT JOIN employee_role on employee.role_id = employee_role.id
+                LEFT JOIN department on employee_role.department_id = department.id
+                LEFT JOIN employee manager on manager.id = employee.manager_id
+                WHERE manager.id = ?`,
+            [answer.manager],
+            (err, res) => {
+              if (err) throw err;
+              console.table(res);
+              dbMenu();
+            }
+          );
+        });
+    }
+  );
+};
 
 // view total utilized budget of a department
 viewTotalUtilizedBudget = () => {
@@ -141,10 +138,12 @@ viewTotalUtilizedBudget = () => {
   );
 };
 
+// export functions
 module.exports = {
   viewAllEmployees,
   viewAllDepartments,
   viewAllRoles,
   viewEmployeesByDepartment,
+  viewEmployeesByManager,
   viewTotalUtilizedBudget,
 };
