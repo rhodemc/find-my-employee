@@ -3,7 +3,7 @@ const inquirer = require("inquirer");
 const employeeDB = require("./db/connection");
 require("console.table");
 
-// import functions
+// import functions from utils
 const {
   viewAllEmployees,
   viewAllDepartments,
