@@ -100,5 +100,5 @@ updateEmployeeManager = () => {
   );
 };
 
-// export functions
+// export functions to app.js
 module.exports = { updateEmployeeRole, updateEmployeeManager };

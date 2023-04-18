@@ -98,5 +98,5 @@ deleteRole = () => {
   );
 };
 
-// export functions
+// export functions to app.js
 module.exports = { deleteEmployee, deleteDepartment, deleteRole };
