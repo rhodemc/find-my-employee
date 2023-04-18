@@ -127,5 +127,5 @@ addRole = () => {
   });
 };
 
-// export functions
+// export functions to app.js
 module.exports = { addEmployee, addDepartment, addRole };

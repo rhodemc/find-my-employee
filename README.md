@@ -16,13 +16,13 @@ I was motivated to create a mySQL employee tracker because it is an efficient wa
 
 ## Installation
 
-Once the repository is downloaded, please navigate to the correct file path in your command terminal and enter 'npm i' to install the necessary dependencies. Then login to your mySQL server and run the schema.sql file to create the database. Finally, run the seeds.sql file to populate the database with sample data.
+Once the repository is downloaded, please navigate to the correct file path in your command terminal and enter 'npm i' to install the necessary dependencies. Once installed, navigate to the db folder, and using your command terminal, login to your mySQL server and run 'SOURCE schema.sql;' to create the database. Finally, run 'SOURCE seeds.sql;' to populate the database with sample data.
 
 ## Usage and Testing
 
 Once necessary dependencies are installed, run 'node app.js' in your command terminal to begin the application. Follow the prompts to add, view, and update employees, roles, and departments.
 
-Future updates will include more customizable data and a creative splash page for the app.
+Future updates will include more customizable data and a creative splash page for the app. It will also allow you to delete the parent department without having to delete the child roles and employees first.
 
 ![Find My Employee - A mySQL Employee Tracker](/assets/images/find-my-employee.png)
 

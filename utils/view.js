@@ -138,7 +138,7 @@ viewTotalUtilizedBudget = () => {
   );
 };
 
-// export functions
+// export functions to app.js
 module.exports = {
   viewAllEmployees,
   viewAllDepartments,
