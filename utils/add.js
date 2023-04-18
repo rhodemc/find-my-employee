@@ -1,3 +1,7 @@
+// dependencies
+const employeeDB = require("../db/connection");
+const inquirer = require("inquirer");
+
 // add employee to database
 addEmployee = () => {
   employeeDB.query(
@@ -123,4 +127,5 @@ addRole = () => {
   });
 };
 
+// export functions
 module.exports = { addEmployee, addDepartment, addRole };

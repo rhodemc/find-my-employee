@@ -1,3 +1,7 @@
+// dependencies
+const employeeDB = require("../db/connection");
+const inquirer = require("inquirer");
+
 // update employee role
 updateEmployeeRole = () => {
   employeeDB.query(
@@ -96,4 +100,5 @@ updateEmployeeManager = () => {
   );
 };
 
+// export functions
 module.exports = { updateEmployeeRole, updateEmployeeManager };
